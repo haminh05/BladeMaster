@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MainUIManager : MonoBehaviour
 {
@@ -14,9 +15,14 @@ public class MainUIManager : MonoBehaviour
     [Header("Panel")]
     [SerializeField] private GameObject panelShop;
     [SerializeField] private GameObject panelCollection;
-
+    [SerializeField] private GameObject panelSubVIP;
     [Header("Images")]
     [SerializeField] private Image currentKnifeImage; // kéo img vào đây
+
+    [Header("VIP Button")]
+    [SerializeField] private Button btnSubVIP;
+    [SerializeField] private TextMeshProUGUI txtSubVIP;     // "VIP" / "BECOME VIP"
+    
     private bool isReady = false;
     // MainUIManager.cs
     void Start()
@@ -25,14 +31,18 @@ public class MainUIManager : MonoBehaviour
         isReady = true;
         InventoryManager.OnEquipChanged += UpdateKnifeImage;
         SaveSystem.OnApplesChanged += UpdateAppleUI;
-        SaveSystem.OnLivesChanged += UpdateLivesUI; // thêm dòng này
+        SaveSystem.OnLivesChanged += UpdateLivesUI; 
+        VIPSystem.OnVIPChanged += UpdateVIPButton;
+        StartCoroutine(VIPTimerLoop());
     }
 
     void OnDestroy()
     {
         InventoryManager.OnEquipChanged -= UpdateKnifeImage;
         SaveSystem.OnApplesChanged -= UpdateAppleUI;
-        SaveSystem.OnLivesChanged -= UpdateLivesUI; // thêm dòng này
+        SaveSystem.OnLivesChanged -= UpdateLivesUI;
+        VIPSystem.OnVIPChanged -= UpdateVIPButton;
+        StopAllCoroutines();
     }
 
     void UpdateAppleUI()
@@ -62,6 +72,44 @@ public class MainUIManager : MonoBehaviour
         highestScore.text = SaveSystem.LoadHighScore().ToString();
         highestStage.text = SaveSystem.LoadMaxStage().ToString();
         UpdateKnifeImage();
+        UpdateVIPButton();
+    }
+    void UpdateVIPButton()
+    {
+        if (btnSubVIP == null) return;
+        bool isVIP = VIPSystem.IsVIP;
+        btnSubVIP.interactable = !isVIP;
+
+        if (txtSubVIP == null) return;
+
+        if (!isVIP)
+        {
+            txtSubVIP.text = "BECOME VIP";
+            return;
+        }
+
+        var remaining = VIPSystem.GetTimeRemaining();
+
+        // Lifetime → TimeSpan.MaxValue
+        if (remaining == TimeSpan.MaxValue)
+        {
+            txtSubVIP.text = "VIP LIFETIME";
+            return;
+        }
+
+        // Có hạn → đếm ngược
+        if ((int)remaining.TotalDays > 0)
+            txtSubVIP.text = $"VIP {(int)remaining.TotalDays}d {remaining.Hours}h {remaining.Minutes}m {remaining.Seconds}s";
+        else
+            txtSubVIP.text = $"VIP {remaining.Hours}h {remaining.Minutes}m {remaining.Seconds}s";
+    }
+    System.Collections.IEnumerator VIPTimerLoop()
+    {
+        while (true)
+        {
+            UpdateVIPButton();
+            yield return new WaitForSecondsRealtime(1f); 
+        }
     }
 
     void UpdateKnifeImage()
@@ -83,6 +131,7 @@ public class MainUIManager : MonoBehaviour
         panelShop.SetActive(true);
     }
 
+
     public void OnBackClicked(GameObject panel)
     {
         panel.SetActive(false);
@@ -93,4 +142,10 @@ public class MainUIManager : MonoBehaviour
     {
         panelCollection.SetActive(true);
     }
+
+    public void OnSubVIPClicked()
+    {
+        panelSubVIP.SetActive(true);
+    }
+
 }

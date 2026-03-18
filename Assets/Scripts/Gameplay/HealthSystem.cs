@@ -4,8 +4,7 @@ public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem Instance;
     public GameObject panelOver;
-    // số mạng dự trữ người chơi mua
-    public int extraLives = 0;
+    private int extraLives = 0;
 
     void Awake()
     {
@@ -14,21 +13,18 @@ public class HealthSystem : MonoBehaviour
 
     void Start()
     {
+        // Load lives từ SaveSystem thay vì dùng giá trị hardcode
+        extraLives = SaveSystem.LoadLives();
         StageUIManager.Instance.SetLives(extraLives);
     }
 
-    // khi player fail
     public void PlayerFailed()
     {
         if (extraLives > 0)
         {
             extraLives--;
-
+            SaveSystem.SaveLives(extraLives); // lưu lại sau khi trừ
             StageUIManager.Instance.SetLives(extraLives);
-
-            Debug.Log("Use extra life. Remaining: " + extraLives);
-
-            // cho chơi tiếp
             KnifeSpawner.Instance.SpawnKnife();
         }
         else
@@ -36,15 +32,13 @@ public class HealthSystem : MonoBehaviour
             GameOver();
         }
     }
-    public int GetLives()
-    {
-        return extraLives;
-    }
-    // khi người chơi mua thêm máu
+
+    public int GetLives() => extraLives;
+
     public void AddLives(int amount)
     {
         extraLives += amount;
-
+        SaveSystem.SaveLives(extraLives);
         StageUIManager.Instance.SetLives(extraLives);
     }
 
