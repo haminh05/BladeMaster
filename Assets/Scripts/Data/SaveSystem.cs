@@ -1,4 +1,6 @@
+// SaveSystem.cs
 using UnityEngine;
+using System;
 
 public static class SaveSystem
 {
@@ -6,14 +8,13 @@ public static class SaveSystem
     const string MAX_STAGE = "MAX_STAGE";
     const string TOTAL_APPLES = "TOTAL_APPLES";
     const string LIVES = "LIVES";
-    const string UNLOCKED_KNIVES = "UNLOCKED_KNIVES";
 
+    public static event Action OnApplesChanged;
+    public static event Action OnLivesChanged;
     public static void SaveHighScore(int score)
     {
         if (score > PlayerPrefs.GetInt(HIGH_SCORE, 0))
-        {
             PlayerPrefs.SetInt(HIGH_SCORE, score);
-        }
     }
 
     public static int LoadHighScore()
@@ -24,9 +25,7 @@ public static class SaveSystem
     public static void SaveMaxStage(int stage)
     {
         if (stage > PlayerPrefs.GetInt(MAX_STAGE, 1))
-        {
             PlayerPrefs.SetInt(MAX_STAGE, stage);
-        }
     }
 
     public static int LoadMaxStage()
@@ -38,6 +37,8 @@ public static class SaveSystem
     {
         int total = PlayerPrefs.GetInt(TOTAL_APPLES, 0);
         PlayerPrefs.SetInt(TOTAL_APPLES, total + apples);
+        PlayerPrefs.Save();
+        OnApplesChanged?.Invoke();
     }
 
     public static int LoadApples()
@@ -47,12 +48,13 @@ public static class SaveSystem
 
     public static void SaveLives(int lives)
     {
-        PlayerPrefs.SetInt("LIVES", lives);
+        PlayerPrefs.SetInt(LIVES, lives);
         PlayerPrefs.Save();
+        OnLivesChanged?.Invoke(); // thêm dòng này
     }
 
     public static int LoadLives()
     {
-        return PlayerPrefs.GetInt("LIVES", 0);
+        return PlayerPrefs.GetInt(LIVES, 0);
     }
 }

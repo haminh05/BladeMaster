@@ -3,7 +3,7 @@
 public class HealthSystem : MonoBehaviour
 {
     public static HealthSystem Instance;
-
+    public GameObject panelOver;
     // số mạng dự trữ người chơi mua
     public int extraLives = 0;
 
@@ -52,5 +52,6 @@ public class HealthSystem : MonoBehaviour
     {
         Debug.Log("GAME OVER");
         Time.timeScale = 0f;
+        panelOver.SetActive(true);
     }
 }

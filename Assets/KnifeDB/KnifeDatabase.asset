@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cff050821c277a4fa6d3809f77c6424, type: 3}
+  m_Name: KnifeDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::KnifeDatabase
+  knives:
+  - {fileID: 11400000, guid: 144ca676cf1f1714ba2a164d0052a4a2, type: 2}
+  - {fileID: 11400000, guid: 7f9dd135b6286b14bb5e2e2d1537c4df, type: 2}
+  - {fileID: 11400000, guid: feb1db65fbc888542b723212845a6e3c, type: 2}
+  - {fileID: 11400000, guid: 9cd6cb3de4a48544880f68d79a37a008, type: 2}
+  - {fileID: 11400000, guid: 2a1948a271be80048a21febfa2730416, type: 2}
+  - {fileID: 11400000, guid: 060da1c9ba9e63447b0ef7855202067e, type: 2}
