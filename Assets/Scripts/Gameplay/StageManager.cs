@@ -86,7 +86,16 @@ public class StageManager : MonoBehaviour
     }
     public void NextStage()
     {
-        bool wasBoss = stages[currentStage].isBoss;
+        StageConfig clearedStage = stages[currentStage];
+        bool wasBoss = clearedStage.isBoss;
+
+        // Unlock dao thưởng nếu là boss stage
+        if (wasBoss && clearedStage.rewardKnife != null)
+        {
+            InventoryManager.Instance.UnlockKnife(clearedStage.rewardKnife.id);
+            Debug.Log($"Unlocked reward knife: {clearedStage.rewardKnife.name}");
+        }
+
         if (rotationCoroutine != null)
             StopCoroutine(rotationCoroutine);
 
@@ -94,10 +103,10 @@ public class StageManager : MonoBehaviour
 
         currentStage++;
         SaveSystem.SaveMaxStage(currentStage + 1);
+
         if (!wasBoss)
-        {
             StageUIManager.Instance.AdvanceBossProgress();
-        }
+
         if (currentStage >= stages.Length)
         {
             Debug.Log("Game Completed!");

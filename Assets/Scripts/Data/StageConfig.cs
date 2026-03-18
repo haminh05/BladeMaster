@@ -32,6 +32,9 @@ public class StageConfig
     public bool isBoss;
     public string bossName;
     public GameObject bossIconPrefab;
+
+    [Header("Boss Reward")]
+    public KnifeData rewardKnife;
     //[Header("Pattern")]
     //public RotationPattern[] rotationPattern;
 }

@@ -56,7 +56,8 @@ public class KnifeController : MonoBehaviour
         else if (collision.gameObject.CompareTag("Knife"))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -2);
-
+            gameObject.tag = "Untagged";
+            col.enabled = false;
             HealthSystem.Instance.PlayerFailed();
         }
         

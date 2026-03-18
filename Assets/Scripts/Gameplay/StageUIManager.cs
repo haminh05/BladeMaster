@@ -53,7 +53,10 @@ public class StageUIManager : MonoBehaviour
 
         UpdateAllUI();
     }
-
+    void OnEnable()
+    {
+        UpdateAllUI();
+    }
     public void SetStage(int value)
     {
         stage = value;
@@ -188,7 +191,7 @@ public class StageUIManager : MonoBehaviour
             Destroy(c.gameObject);
     }
     //UPFATE UI FUNC
-    void UpdateAllUI()
+    public void UpdateAllUI()
     {
         scoreText.text = score.ToString();
         numberStageText.text = stage.ToString();
