@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//kho dao
 public static class SaveSystem
 {
     const string HIGH_SCORE = "HIGH_SCORE";
