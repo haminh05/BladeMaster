@@ -17,6 +17,7 @@ public class IAPPackageData : ScriptableObject
     public bool removeAds;
 
     public bool isVIP;
+    public int vipDurationDays;
 }
 
 public enum PackageType

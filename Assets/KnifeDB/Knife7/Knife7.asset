@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad875a5dab127c242b3d35e9eaaa167c, type: 3}
+  m_Name: Knife7
+  m_EditorClassIdentifier: Assembly-CSharp::KnifeData
+  id: 7
+  isDefault: 0
+  lockedSprite: {fileID: -1714703186237682807, guid: fd4f3df72b7d8424989607718f81f5fa, type: 3}
+  unlockedSprite: {fileID: 9176805819228060775, guid: f74b483084c0cf14e9d648dac0bc830a, type: 3}
+  knifePrefab: {fileID: 6663128968997316289, guid: c884771f3b4b0b04c9346380c8c89223, type: 3}
+  unlockType: 3
+  appleCost: 0
+  adCount: 0
+  bossName: 

@@ -3,93 +3,62 @@
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager Instance;
-
     public IAPPackageData[] packages;
 
-    void Awake()
+    void Awake() { Instance = this; }
+
+    // Hàm duy nhất gọi từ UI button
+    public void BuyProduct(string productID)
     {
-        Instance = this;
+        // Luôn gọi qua IAPManager — Editor sẽ tự hiện fake store popup
+        IAPManager.Instance.BuyProduct(productID);
     }
 
-    // gọi khi IAP mua thành công
+    // Gọi tự động sau khi store (thật hoặc fake) xác nhận
     public void OnPurchaseSuccess(string productID)
     {
-        foreach (var pack in packages)
+        IAPPackageData pack = FindPackage(productID);
+        if (pack == null)
         {
-            if (pack.productID == productID)
-            {
-                ApplyPackage(pack);
-                break;
-            }
+            Debug.LogWarning($"Không tìm thấy package: {productID}");
+            return;
         }
+        ApplyPackage(pack);
+    }
+
+    IAPPackageData FindPackage(string productID)
+    {
+        foreach (var pack in packages)
+            if (pack.productID == productID) return pack;
+        return null;
     }
 
     void ApplyPackage(IAPPackageData pack)
     {
-        // thêm apples
         if (pack.appleAmount > 0)
-        {
             SaveSystem.AddApples(pack.appleAmount);
-        }
 
-        // thêm lives
         if (pack.livesAmount > 0)
-        {
-            int lives = SaveSystem.LoadLives();
-            SaveSystem.SaveLives(lives + pack.livesAmount);
-        }
+            SaveSystem.SaveLives(SaveSystem.LoadLives() + pack.livesAmount);
 
-        // remove ads
         if (pack.removeAds)
         {
             PlayerPrefs.SetInt("REMOVE_ADS", 1);
+            PlayerPrefs.Save();
         }
 
-        // vip
         if (pack.isVIP)
         {
-            PlayerPrefs.SetInt("VIP", 1);
+            VIPSystem.ActivateVIP(pack.vipDurationDays);
+            PlayerPrefs.Save();
         }
 
-        // unlock knives
         foreach (var knifeID in pack.knifeUnlockIDs)
-        {
-            UnlockKnife(knifeID);
-        }
+            InventoryManager.Instance.UnlockKnife(knifeID);
 
-        PlayerPrefs.Save();
+        Debug.Log($"✅ Đã áp dụng: {pack.displayName}");
     }
 
-    void UnlockKnife(int knifeID)
-    {
-        string key = "KNIFE_" + knifeID;
-
-        if (!PlayerPrefs.HasKey(key))
-        {
-            PlayerPrefs.SetInt(key, 1);
-        }
-    }
-    // mua pack lives
-    public void BuyLivesPack()
-    {
-        IAPManager.Instance.BuyProduct("lives_pack");
-    }
-
-    // mua pack knives
-    public void BuyKnifePack()
-    {
-        IAPManager.Instance.BuyProduct("knife_pack");
-    }
-
-    // remove ads
-    public void BuyRemoveAds()
-    {
-        IAPManager.Instance.BuyProduct("remove_ads");
-    }
-
-    // vip
-    public void BuyVIP()
-    {
-        IAPManager.Instance.BuyProduct("vip_sub");
-    }
+    public static bool IsVIP => PlayerPrefs.GetInt("VIP", 0) == 1;
+    public static bool IsAdsRemoved => PlayerPrefs.GetInt("REMOVE_ADS", 0) == 1;
 }
