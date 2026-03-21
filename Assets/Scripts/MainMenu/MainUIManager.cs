@@ -16,6 +16,11 @@ public class MainUIManager : MonoBehaviour
     [SerializeField] private GameObject panelShop;
     [SerializeField] private GameObject panelCollection;
     [SerializeField] private GameObject panelSubVIP;
+    [SerializeField] private GameObject panelChallenge;
+    [SerializeField] private GameObject panelPU;
+    [SerializeField] private GameObject panelSetting;
+    [SerializeField] private GameObject panelLeaderBoard;
+
     [Header("Images")]
     [SerializeField] private Image currentKnifeImage; // kéo img vào đây
 
@@ -148,4 +153,27 @@ public class MainUIManager : MonoBehaviour
         panelSubVIP.SetActive(true);
     }
 
+    public void OnChallengeClicked()
+    {
+        panelChallenge.SetActive(true);
+    }
+
+    public void OnPUClicked()
+    {
+        panelPU.SetActive(true);
+    }
+
+    public void OnSettingClicked()
+    {
+        panelSetting.SetActive(true);
+    }
+
+    public void OnLeaderBoardClicked()
+    {
+        panelLeaderBoard.SetActive(true);
+    }
+    public void OnLoadChallengelicked(int id)
+    {
+        SceneManager.LoadScene($"BossChallenge{id}");
+    }
 }

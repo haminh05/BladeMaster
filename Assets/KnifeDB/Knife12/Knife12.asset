@@ -17,7 +17,7 @@ MonoBehaviour:
   lockedSprite: {fileID: 5461417976411555469, guid: 4dcb5fdaea9a14f4db58fe2a8249f6ba, type: 3}
   unlockedSprite: {fileID: -356237527355714874, guid: e3852a04c466c0149a8b3b8a13fd8433, type: 3}
   knifePrefab: {fileID: 6663128968997316289, guid: 83b9a16cb2539c74e80bdd0096a34312, type: 3}
-  unlockType: 0
+  unlockType: 3
   appleCost: 3
   adCount: 0
-  bossName: 
+  bossName: Pivate

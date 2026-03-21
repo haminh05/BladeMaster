@@ -20,17 +20,17 @@ public class HealthSystem : MonoBehaviour
 
     public void PlayerFailed()
     {
-        if (extraLives > 0)
+        if (extraLives > 0 || PowerUpSystem.Instance.RollRevive())
         {
-            extraLives--;
-            SaveSystem.SaveLives(extraLives); // lưu lại sau khi trừ
-            StageUIManager.Instance.SetLives(extraLives);
+            if (extraLives > 0)
+            {
+                extraLives--;
+                SaveSystem.SaveLives(extraLives);
+                StageUIManager.Instance.SetLives(extraLives);
+            }
             KnifeSpawner.Instance.SpawnKnife();
         }
-        else
-        {
-            GameOver();
-        }
+        else GameOver();
     }
 
     public int GetLives() => extraLives;
@@ -44,7 +44,9 @@ public class HealthSystem : MonoBehaviour
 
     void GameOver()
     {
+        SoundManager.Instance.PlayGameOver();
         Debug.Log("GAME OVER");
+        LeaderboardManager.Instance.SubmitScore(SaveSystem.LoadHighScore());
         Time.timeScale = 0f;
         panelOver.SetActive(true);
     }

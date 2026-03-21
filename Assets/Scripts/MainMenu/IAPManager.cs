@@ -8,11 +8,15 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     public IAPPackageData[] packages;
 
     private IStoreController controller;
+    private IExtensionProvider extensions;
     private bool isInitialized = false;
 
     void Awake()
     {
+
+        if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         InitializePurchasing();
     }
 
@@ -49,6 +53,7 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
     {
         this.controller = controller;
+        this.extensions = extensions;
         isInitialized = true;
         Debug.Log("IAP khởi tạo thành công!");
     }
@@ -77,5 +82,31 @@ public class IAPManager : MonoBehaviour, IDetailedStoreListener
     public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
     {
         Debug.LogWarning($"Mua thất bại: {product.definition.id} - {failureDescription.message}");
+    }
+
+    // Thêm vào IAPManager.cs
+    public void RestorePurchases(System.Action<bool, string> onResult)
+    {
+#if UNITY_IOS
+    var apple = extensions.GetExtension<IAppleExtensions>();
+    apple.RestoreTransactions(result =>
+    {
+        if (result)
+        {
+            // ProcessPurchase sẽ tự được gọi cho từng product đã mua
+            onResult?.Invoke(true, "Khôi phục thành công!");
+        }
+        else
+        {
+            onResult?.Invoke(false, "Không tìm thấy giao dịch nào.");
+        }
+    });
+#elif UNITY_ANDROID
+        // Android tự restore khi IAP init, không cần gọi thêm
+        onResult?.Invoke(true, "RESTORED SUCCESSFULY! \n In-App Purchases restored.");
+#else
+    // Editor / fake
+    onResult?.Invoke(false, "Restore không khả dụng trên nền tảng này.");
+#endif
     }
 }

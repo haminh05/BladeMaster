@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Knife6
   m_EditorClassIdentifier: Assembly-CSharp::KnifeData
   id: 6
+  isDefault: 0
   lockedSprite: {fileID: 5193089514177777359, guid: 1a2eebba023055a40810ec0b434da722, type: 3}
   unlockedSprite: {fileID: 6501847863201939567, guid: 3effff509f47a944eb70f9d214927498, type: 3}
   knifePrefab: {fileID: 6663128968997316289, guid: 1ad5d3c63966e184bb9cc7e1e285427b, type: 3}
   unlockType: 3
   appleCost: 0
+  adCount: 0
+  bossName: Kingdom

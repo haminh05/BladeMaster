@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageManager : MonoBehaviour
+public class StageManager : MonoBehaviour 
 {
     public StageConfig[] stages;
     public Transform targetSpawnPoint;
     private int currentStage = 0;
     public int knivesHit = 0;
+    public GameObject panelWin;
     private GameObject currentTarget;
     private Coroutine rotationCoroutine;
 
@@ -20,6 +21,7 @@ public class StageManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+       
     }
     public void StartStage()
     {
@@ -89,27 +91,35 @@ public class StageManager : MonoBehaviour
         StageConfig clearedStage = stages[currentStage];
         bool wasBoss = clearedStage.isBoss;
 
-        // Unlock dao thưởng nếu là boss stage
-        if (wasBoss && clearedStage.rewardKnife != null)
+        if (wasBoss && clearedStage.isChallenge)
         {
-            InventoryManager.Instance.UnlockKnife(clearedStage.rewardKnife.id);
-            Debug.Log($"Unlocked reward knife: {clearedStage.rewardKnife.name}");
+            int xp = Mathf.RoundToInt(
+                clearedStage.xpRewardOnBossClear
+                * PowerUpSystem.Instance.GetXPMultiplier()
+            );
+            PowerUpSystem.Instance.AddXP(xp);
+
+            if (clearedStage.rewardKnife != null)
+                InventoryManager.Instance.UnlockKnife(clearedStage.rewardKnife.id);
         }
 
         if (rotationCoroutine != null)
             StopCoroutine(rotationCoroutine);
 
         Destroy(currentTarget);
-
+        SoundManager.Instance.PlayTargetClear();
         currentStage++;
         SaveSystem.SaveMaxStage(currentStage + 1);
 
         if (!wasBoss)
             StageUIManager.Instance.AdvanceBossProgress();
 
-        if (currentStage >= stages.Length)
+        if (currentStage >= stages.Length || stages[currentStage].targetPrefab == null)
         {
             Debug.Log("Game Completed!");
+            LeaderboardManager.Instance.SubmitScore(SaveSystem.LoadHighScore());
+            Time.timeScale = 0f;
+            panelWin.SetActive(true);
             return;
         }
 
@@ -139,11 +149,9 @@ public class StageManager : MonoBehaviour
             knife.transform.localScale = stage.knifePrefab.transform.localScale;
             knife.transform.SetParent(currentTarget.transform);
 
-            // Giữ đúng world scale sau khi parent
 
-
-            // Vị trí local xung quanh tâm target
-            float spawnYOffset = -3.244561f;
+            TargetRotation rot = currentTarget.GetComponent<TargetRotation>();
+            float spawnYOffset = rot.isDefault ? -3.244561f : -0.5f;
 
             Vector3 localPos =
      Quaternion.Euler(0, 0, angle) * Vector3.up * (localRadius + spawnYOffset);

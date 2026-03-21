@@ -11,7 +11,9 @@ public class InventoryManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
+        DontDestroyOnLoad(this);
         UnlockDefaultKnife();
     }
 
@@ -52,6 +54,7 @@ public class InventoryManager : MonoBehaviour
         if (!IsKnifeUnlocked(id)) return;
         PlayerPrefs.SetInt("EQUIP_KNIFE", id);
         PlayerPrefs.Save();
+        SoundManager.Instance.PlayEquipKnife();
         OnEquipChanged?.Invoke(); // thông báo cho UI
     }
 

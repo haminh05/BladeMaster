@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9243e1c3c9f99488f1936bfa5e40b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetRotation
-  rotationSpeed: 100
+  isDefault: 1
 --- !u!50 &2359052638386454203
 Rigidbody2D:
   serializedVersion: 5

@@ -17,7 +17,7 @@ MonoBehaviour:
   lockedSprite: {fileID: -3313715437958874253, guid: 03ef11eddb19aa245bd16d5206693f0b, type: 3}
   unlockedSprite: {fileID: 7525850785441826070, guid: 69f6dc12634ac86439ecc9fde94a2371, type: 3}
   knifePrefab: {fileID: 6663128968997316289, guid: a8dec8e64783d4a40807ebf826cfa922, type: 3}
-  unlockType: 3
+  unlockType: 1
   appleCost: 0
-  adCount: 0
-  bossName: KKKKK
+  adCount: 3
+  bossName: 

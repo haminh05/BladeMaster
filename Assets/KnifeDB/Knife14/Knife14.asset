@@ -17,7 +17,7 @@ MonoBehaviour:
   lockedSprite: {fileID: 6251977669141123471, guid: 2af5041464a11194da20e313bf20177e, type: 3}
   unlockedSprite: {fileID: 2520188878139699707, guid: dc808ef0f4278ad408fbef84029aa45c, type: 3}
   knifePrefab: {fileID: 6663128968997316289, guid: e2cd0111da280a8458215a1a567a3ff4, type: 3}
-  unlockType: 0
-  appleCost: 2
+  unlockType: 3
+  appleCost: 0
   adCount: 0
-  bossName: 
+  bossName: Monster

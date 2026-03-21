@@ -3,7 +3,7 @@
 public class TargetRotation : MonoBehaviour
 {
     private float rotationSpeed;
-
+    public bool isDefault;
     public void Init(float startSpeed)
     {
         rotationSpeed = startSpeed;

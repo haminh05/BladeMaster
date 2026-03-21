@@ -5,7 +5,11 @@ public class ShopManager : MonoBehaviour
     public static ShopManager Instance;
     public IAPPackageData[] packages;
 
-    void Awake() { Instance = this; }
+    void Awake() {
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Hàm duy nhất gọi từ UI button
     public void BuyProduct(string productID)

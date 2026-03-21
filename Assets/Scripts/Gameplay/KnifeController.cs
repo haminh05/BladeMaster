@@ -46,7 +46,7 @@ public class KnifeController : MonoBehaviour
 
             StageManager.Instance.OnKnifeHit();
             StageUIManager.Instance.AddScore(1);
-
+            SoundManager.Instance.PlayHitTarget();
             Debug.Log("Hit Target!");
 
             // spawn dao mới
@@ -58,7 +58,10 @@ public class KnifeController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -2);
             gameObject.tag = "Untagged";
             col.enabled = false;
+            SoundManager.Instance.PlayHitKnife();
+            SettingsManager.Instance.Vibrate();
             HealthSystem.Instance.PlayerFailed();
+            Destroy(gameObject);
         }
         
     }

@@ -14,8 +14,15 @@ public class PanelGameOver : MonoBehaviour
     [SerializeField] private TextMeshProUGUI score1;
     [SerializeField] private TextMeshProUGUI stage1;
 
-
+    [Header("Panels")]
+    public GameObject panelSetting;
+    public GameObject panelLeaderboard;
+    public GameObject panelCollection;
     public static PanelGameOver Instance;
+
+    public void OnSettingClicked() => panelSetting.SetActive(true);
+    public void OnLeaderboardClicked() => panelLeaderboard.SetActive(true);
+    public void OnCollectionClicked() => panelCollection.SetActive(true);
     void Start()
     {
         
@@ -64,17 +71,7 @@ public class PanelGameOver : MonoBehaviour
 
     public void OnExtraLivesClicked()
     {
-        // mua mạng
-
-        SaveSystem.SaveLives(9);
-
-        Time.timeScale = 1f;
-
-        panelGameOver1.SetActive(false);
-
-        StageUIManager.Instance.UpdateAllUI();
-
-        KnifeSpawner.Instance.SpawnKnife();
+        IAPManager.Instance.BuyProduct("4");  // productID trong IAPPackageData
     }
 
     public void OnNoThanksClicked()
@@ -98,7 +95,21 @@ public class PanelGameOver : MonoBehaviour
 
     public void OnShareClicked()
     {
-        Debug.Log("Share game to social media!");
+#if UNITY_ANDROID
+        AndroidJavaClass intentClass = new AndroidJavaClass("android.content.Intent");
+        AndroidJavaObject intentObject = new AndroidJavaObject("android.content.Intent", "android.intent.action.SEND");
+        intentObject.Call<AndroidJavaObject>("setType", "text/plain");
+        intentObject.Call<AndroidJavaObject>("putExtra", "android.intent.extra.TEXT",
+            $"Tôi đạt {SaveSystem.LoadHighScore()} điểm trong Knife Hit! Bạn có thể vượt qua không?");
+
+        AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
+
+        AndroidJavaObject chooser = intentClass.CallStatic<AndroidJavaObject>("createChooser", intentObject, "Chia sẻ điểm số");
+        currentActivity.Call("startActivity", chooser);
+#else
+    Debug.Log("Share không khả dụng trên nền tảng này.");
+#endif
     }
 
     public void OnAddAppleClicked() 

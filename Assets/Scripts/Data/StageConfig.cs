@@ -35,6 +35,14 @@ public class StageConfig
 
     [Header("Boss Reward")]
     public KnifeData rewardKnife;
+
+    [Header("Challenge")]
+    public bool isChallenge;
+    public string challengeName;
+    public int challengeIndex;         
+    public int xpRewardOnBossClear;
+
+
     //[Header("Pattern")]
     //public RotationPattern[] rotationPattern;
 }

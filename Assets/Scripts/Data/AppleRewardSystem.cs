@@ -74,11 +74,14 @@ public class AppleRewardSystem : MonoBehaviour
     int DoClain()
     {
         int baseAmount = GetAccumulatedApples();
-        int amount = Mathf.RoundToInt(baseAmount * VIPSystem.RewardMultiplier); // x2 nếu VIP
+        float multiplier = VIPSystem.RewardMultiplier
+                         * PowerUpSystem.Instance.GetDailyAppleMultiplier();
+        int amount = Mathf.RoundToInt(baseAmount * multiplier);
         SaveSystem.AddApples(amount);
         PlayerPrefs.SetInt(ACCUMULATED_KEY, 0);
         PlayerPrefs.SetString(LAST_CLAIM_KEY, DateTime.UtcNow.ToString());
         PlayerPrefs.Save();
+        SoundManager.Instance.PlayDailyReward();
         return amount;
     }
 
@@ -134,7 +137,7 @@ public class AppleRewardSystem : MonoBehaviour
                     effectSpawnPoint.position + offset,
                     Quaternion.identity, effectSpawnPoint);
 
-                Destroy(apple, 1f); // tự destroy sau 1 giây
+                Destroy(apple, 1f); 
                 yield return new WaitForSecondsRealtime(0.1f);
             }
         }

@@ -8,6 +8,8 @@ public static class SaveSystem
     const string MAX_STAGE = "MAX_STAGE";
     const string TOTAL_APPLES = "TOTAL_APPLES";
     const string LIVES = "LIVES";
+    const string CHALLENGE_PROGRESS = "CHALLENGE_";
+
 
     public static event Action OnApplesChanged;
     public static event Action OnLivesChanged;
@@ -57,4 +59,36 @@ public static class SaveSystem
     {
         return PlayerPrefs.GetInt(LIVES, 0);
     }
+
+    public static void SaveChallengeProgress(string challengeId, int stageIndex)
+    {
+        PlayerPrefs.SetInt(CHALLENGE_PROGRESS + challengeId, stageIndex);
+        PlayerPrefs.Save();
+    }
+
+    public static int LoadChallengeProgress(string challengeId)
+    {
+        return PlayerPrefs.GetInt(CHALLENGE_PROGRESS + challengeId, 0);
+    }
+
+    public static bool IsChallengeCompleted(string challengeId, int totalStages)
+    {
+        return LoadChallengeProgress(challengeId) >= totalStages;
+    }
+
+    // PowerUp global
+
+    public static void SavePowerUpLevel(int level)
+    {
+        PlayerPrefs.SetInt("PU_LEVEL", level);
+        PlayerPrefs.Save();
+    }
+    public static int LoadPowerUpLevel() => PlayerPrefs.GetInt("PU_LEVEL", 0);
+
+    public static void SavePowerUpXP(int xp)
+    {
+        PlayerPrefs.SetInt("PU_XP", xp);
+        PlayerPrefs.Save();
+    }
+    public static int LoadPowerUpXP() => PlayerPrefs.GetInt("PU_XP", 0);
 }

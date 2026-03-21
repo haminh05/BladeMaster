@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef141b7e85ee2f34787c009a07ecc7a6, type: 3}
+  m_Name: PU4
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUpData
+  type: 3
+  description: MORE APPLES IN FREE GIFT
+  iconLocked: {fileID: -3846330120125846787, guid: d31e445ea62cfd44687e9b93f20c5b2e, type: 3}
+  iconUnlocked: {fileID: 2878145713415512388, guid: 5e47b0532af667e41bc30fbc5ed4d9dd, type: 3}
+  value: 42

@@ -198,4 +198,10 @@ public class StageUIManager : MonoBehaviour
         appleText.text = SaveSystem.LoadApples().ToString();
         livesText.text = SaveSystem.LoadLives().ToString();
     }
+
+    public void OnBackClicked(GameObject panel)
+    {
+        panel.SetActive(false);
+        UpdateAllUI();
+    }
 }
