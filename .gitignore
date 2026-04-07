@@ -97,3 +97,19 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# AdMob / Google Mobile Ads
+/[Aa]ssets/GoogleMobileAds/
+/[Aa]ssets/GoogleMobileAds.meta
+/[Aa]ssets/Plugins/Android/googlemobileads*
+/[Aa]ssets/Plugins/iOS/googlemobileads*
+
+# Google Mobile Ads dependencies
+/[Aa]ssets/ExternalDependencyManager/
+/[Aa]ssets/ExternalDependencyManager.meta
+/[Aa]ssets/PlayServicesResolver/
+/[Aa]ssets/PlayServicesResolver.meta
+
+# Android resolver generated files
+/[Aa]ssets/Plugins/Android/mainTemplate.gradle.meta
+Dependencies.xml.meta
