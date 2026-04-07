@@ -739,6 +739,7 @@ RectTransform:
   - {fileID: 1393924944}
   - {fileID: 1905716970}
   - {fileID: 1041625335}
+  - {fileID: 1594756511}
   - {fileID: 2011431124}
   - {fileID: 538821936}
   - {fileID: 1963887249}
@@ -771,7 +772,8 @@ MonoBehaviour:
   stageText: {fileID: 1385155220}
   appleText: {fileID: 353305841}
   livesText: {fileID: 719984085}
-  panelKnives: {fileID: 1041625331}
+  panelKnivesRight: {fileID: 1041625331}
+  panelKnivesLeft: {fileID: 1594756510}
   iconKnife: {fileID: 7886626995286109993, guid: 2ce34d2d66df1404ba8fd9c9cfd21261, type: 3}
   usedKnifeIconColor: {r: 0, g: 0, b: 0, a: 0.8}
   bossPanel: {fileID: 2011431124}
@@ -781,7 +783,7 @@ MonoBehaviour:
   bossBanner: {fileID: 538821935}
   bossText: {fileID: 1780794378}
   bossBannerIcon: {fileID: 8244535008720290375, guid: 5e220a5a5a542dd40908a53254b1347f, type: 3}
-  bossUIColor: {r: 0.78113204, g: 0.0633748, b: 0.0633748, a: 1}
+  bossUIColor: {r: 0.7509433, g: 0, b: 0, a: 1}
 --- !u!114 &291847600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2430,7 +2432,7 @@ GameObject:
   - component: {fileID: 1041625333}
   - component: {fileID: 1041625332}
   m_Layer: 5
-  m_Name: pn_knifeCount
+  m_Name: pn_knifeCountLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2516,8 +2518,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 85.49823, y: 52.744873}
-  m_SizeDelta: {x: 103.28888, y: -105.4899}
+  m_AnchoredPosition: {x: 85.49823, y: 131.09937}
+  m_SizeDelta: {x: 103.2889, y: -262.199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1079563178
 GameObject:
@@ -3322,26 +3324,6 @@ MonoBehaviour:
     challengeName: 
     challengeIndex: 0
     xpRewardOnBossClear: 0
-  - knivesToHit: 9
-    targetPrefab: {fileID: 8404652540655012390, guid: 2072a2cd281951046b77ed16265d1485, type: 3}
-    startRotationSpeed: 90
-    randomRotation: 1
-    rotationChangeInterval: 0.9
-    minRotationSpeed: 100
-    maxRotationSpeed: 160
-    allowReverse: 1
-    startingKnives: 2
-    knifePrefab: {fileID: 6663128968997316289, guid: 8d6f7a283aca50040ae9bc74ccd509ac, type: 3}
-    appleCount: 2
-    applePrefab: {fileID: 2886994284794510419, guid: e64972d94f0ca1241adaa8756bd14409, type: 3}
-    isBoss: 1
-    bossName: SODA CHANH
-    bossIconPrefab: {fileID: 8304926605021109200, guid: 5e220a5a5a542dd40908a53254b1347f, type: 3}
-    rewardKnife: {fileID: 11400000, guid: 9cd6cb3de4a48544880f68d79a37a008, type: 2}
-    isChallenge: 0
-    challengeName: 
-    challengeIndex: 0
-    xpRewardOnBossClear: 0
   - knivesToHit: 7
     targetPrefab: {fileID: 8404652540655012390, guid: 2072a2cd281951046b77ed16265d1485, type: 3}
     startRotationSpeed: 110
@@ -3378,6 +3360,26 @@ MonoBehaviour:
     bossName: 
     bossIconPrefab: {fileID: 0}
     rewardKnife: {fileID: 0}
+    isChallenge: 0
+    challengeName: 
+    challengeIndex: 0
+    xpRewardOnBossClear: 0
+  - knivesToHit: 9
+    targetPrefab: {fileID: 8404652540655012390, guid: 2072a2cd281951046b77ed16265d1485, type: 3}
+    startRotationSpeed: 90
+    randomRotation: 1
+    rotationChangeInterval: 0.9
+    minRotationSpeed: 100
+    maxRotationSpeed: 160
+    allowReverse: 1
+    startingKnives: 3
+    knifePrefab: {fileID: 6663128968997316289, guid: 8d6f7a283aca50040ae9bc74ccd509ac, type: 3}
+    appleCount: 2
+    applePrefab: {fileID: 2886994284794510419, guid: e64972d94f0ca1241adaa8756bd14409, type: 3}
+    isBoss: 1
+    bossName: SODA CHANH
+    bossIconPrefab: {fileID: 8304926605021109200, guid: 5e220a5a5a542dd40908a53254b1347f, type: 3}
+    rewardKnife: {fileID: 11400000, guid: 9cd6cb3de4a48544880f68d79a37a008, type: 2}
     isChallenge: 0
     challengeName: 
     challengeIndex: 0
@@ -3450,7 +3452,7 @@ MonoBehaviour:
     minRotationSpeed: 130
     maxRotationSpeed: 190
     allowReverse: 1
-    startingKnives: 0
+    startingKnives: 4
     knifePrefab: {fileID: 6663128968997316289, guid: 8d6f7a283aca50040ae9bc74ccd509ac, type: 3}
     appleCount: 1
     applePrefab: {fileID: 2886994284794510419, guid: e64972d94f0ca1241adaa8756bd14409, type: 3}
@@ -5298,6 +5300,108 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3050466897879181874, guid: 47a265fbe30c0eb4ca337c556abf6bc0, type: 3}
   m_PrefabInstance: {fileID: 1498245893}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594756510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1594756511}
+  - component: {fileID: 1594756514}
+  - component: {fileID: 1594756513}
+  - component: {fileID: 1594756512}
+  m_Layer: 5
+  m_Name: pn_knifeCountRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1594756511
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594756510}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 291847598}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -103.17999, y: 128.11}
+  m_SizeDelta: {x: 103.28894, y: -262.199}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1594756512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594756510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 7
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &1594756513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594756510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1594756514
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594756510}
+  m_CullTransparentMesh: 1
 --- !u!1 &1614929523
 GameObject:
   m_ObjectHideFlags: 0

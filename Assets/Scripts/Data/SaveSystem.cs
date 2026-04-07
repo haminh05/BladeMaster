@@ -91,4 +91,13 @@ public static class SaveSystem
         PlayerPrefs.Save();
     }
     public static int LoadPowerUpXP() => PlayerPrefs.GetInt("PU_XP", 0);
+
+    public static void SaveAdWatchCount(int knifeId, int count)
+    {
+        PlayerPrefs.SetInt($"AD_WATCH_{knifeId}", count);
+        PlayerPrefs.Save();
+    }
+
+    public static int LoadAdWatchCount(int knifeId)
+        => PlayerPrefs.GetInt($"AD_WATCH_{knifeId}", 0);
 }

@@ -174,6 +174,11 @@ public class MainUIManager : MonoBehaviour
     }
     public void OnLoadChallengelicked(int id)
     {
-        SceneManager.LoadScene($"BossChallenge{id}");
+        AdsManager.Instance.ShowInterstitial(() =>
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene($"BossChallenge{id}");
+        });
+
     }
 }

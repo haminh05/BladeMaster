@@ -112,7 +112,9 @@ public class KnifeCollectionUI : MonoBehaviour
                 if (!unlocked)
                 {
                     btnAd.SetActive(true);
-                    txtAdCount.text = selectedKnife.adCount.ToString();
+                    int watched = SaveSystem.LoadAdWatchCount(selectedKnife.id);
+                    int remaining = selectedKnife.adCount - watched;
+                    txtAdCount.text = Mathf.Max(0, remaining).ToString();
                 }
                 break;
 
@@ -153,13 +155,34 @@ public class KnifeCollectionUI : MonoBehaviour
     public void OnWatchAd()
     {
         if (selectedKnife == null) return;
-        // Thay bằng AdManager.Instance.ShowAd(...) khi có SDK
-        Debug.Log("Show Ad → Unlock knife");
 
-        // Giả lập xem ad xong:
-        // InventoryManager.Instance.UnlockKnife(selectedKnife.id);
-        // InventoryManager.Instance.EquipKnife(selectedKnife.id);
-        // SelectKnife(selectedKnife);
+        AdsManager.Instance.ShowRewarded(success =>
+        {
+            if (!success) return;
+
+            int knifeId = selectedKnife.id;
+            int watched = SaveSystem.LoadAdWatchCount(knifeId) + 1;
+            int required = selectedKnife.adCount;
+
+            SaveSystem.SaveAdWatchCount(knifeId, watched);
+
+            // Cập nhật UI số lần còn lại
+            int remaining = required - watched;
+            txtAdCount.text = Mathf.Max(0, remaining).ToString();
+
+            Debug.Log($"[Ad] Watched {watched}/{required} for knife {knifeId}");
+
+            if (watched >= required)
+            {
+                // Xem đủ → unlock
+                SaveSystem.SaveAdWatchCount(knifeId, 0); // reset counter
+                InventoryManager.Instance.UnlockKnife(knifeId);
+                InventoryManager.Instance.EquipKnife(knifeId);
+                SelectKnife(selectedKnife);
+                KnifeSlotUI.RefreshAllSlots();
+                Debug.Log($"[Ad] Knife {knifeId} unlocked!");
+            }
+        });
     }
 
     // ── Random 1 dao Apple chưa unlock ──
@@ -191,11 +214,13 @@ public class KnifeCollectionUI : MonoBehaviour
     // ── Xem ad để nhận táo ──
     public void OnWatchAdForApples()
     {
-        
-        Debug.Log($"Watch Ad → +{adAppleReward} apples");
-
-        // Giả lập xem ad xong:
-        // SaveSystem.AddApples(adAppleReward);
+        AdsManager.Instance.ShowRewarded(success =>
+        {
+            if (!success) return;
+            int bonus = PowerUpSystem.Instance.GetVideoAppleBonus();
+            SaveSystem.AddApples(bonus);
+            StageUIManager.Instance.SetApple(SaveSystem.LoadApples());
+        });
     }
 
     public void OnPageChanged(KnifeUnlockType pageType)

@@ -58,15 +58,14 @@ public class PanelGameOver : MonoBehaviour
     }
     public void OnContinuesClicked()
     {
-        // quảng cáo
-
-        Time.timeScale = 1f;
-
-        panelGameOver1.SetActive(false);
-  
-        StageUIManager.Instance.UpdateAllUI();
-
-        KnifeSpawner.Instance.SpawnKnife();
+        AdsManager.Instance.ShowRewarded(success =>
+        {
+            if (!success) return;
+            Time.timeScale = 1f;
+            panelGameOver1.SetActive(false);
+            StageUIManager.Instance.UpdateAllUI();
+            KnifeSpawner.Instance.SpawnKnife();
+        });
     }
 
     public void OnExtraLivesClicked()
@@ -89,8 +88,12 @@ public class PanelGameOver : MonoBehaviour
 
     public void OnHomeClicked()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+
+        AdsManager.Instance.ShowInterstitial(() =>
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
+        });
     }
 
     public void OnShareClicked()
@@ -115,7 +118,14 @@ public class PanelGameOver : MonoBehaviour
     public void OnAddAppleClicked() 
     {
         //xử lý ads
-
-        SceneManager.LoadScene("MainMenu");
+        AdsManager.Instance.ShowRewarded(success =>
+        {
+            if (!success) return;
+            int bonus = PowerUpSystem.Instance.GetVideoAppleBonus();
+            SaveSystem.AddApples(bonus);
+            StageUIManager.Instance.SetApple(SaveSystem.LoadApples());
+            SceneManager.LoadScene("MainMenu");
+        });
+       
     }
 }

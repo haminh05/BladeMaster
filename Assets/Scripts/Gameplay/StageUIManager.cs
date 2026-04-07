@@ -15,13 +15,15 @@ public class StageUIManager : MonoBehaviour
     public TextMeshProUGUI livesText;
 
     [Header("Knife Count Display")] 
-    [SerializeField]
-    private GameObject panelKnives;
+    [SerializeField] private GameObject panelKnivesRight;
+    [SerializeField] private GameObject panelKnivesLeft;
     [SerializeField]
     private GameObject iconKnife;
     [SerializeField]
     private Color usedKnifeIconColor;
-
+    private GameObject panelKnives => SettingsManager.Instance.LeftHand
+    ? panelKnivesLeft
+    : panelKnivesRight;
     [Header("Progress UI")]
     [SerializeField] private Transform bossPanel;
     [SerializeField] private GameObject dotIcon;

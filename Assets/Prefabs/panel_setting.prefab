@@ -1004,9 +1004,6 @@ MonoBehaviour:
   btnSound: {fileID: 1464664790522618476}
   btnVibration: {fileID: 3649609002808829298}
   btnLeftHand: {fileID: 6572638307974051388}
-  soundOnObject: {fileID: 0}
-  vibrationOnObject: {fileID: 0}
-  leftHandOnObject: {fileID: 0}
   btnRestore: {fileID: 7393457547214446331}
   panelRestoreResult: {fileID: 176479662090209560}
   txtRestoreResult: {fileID: 800494676231578005}
@@ -3155,6 +3152,7 @@ GameObject:
   - component: {fileID: 1226553436787537536}
   - component: {fileID: 7502603657911692053}
   - component: {fileID: 9032408322066514910}
+  - component: {fileID: 9057751490595640533}
   m_Layer: 5
   m_Name: bn_removeAds
   m_TagString: Untagged
@@ -3263,19 +3261,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1226553436787537536}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
-        m_MethodName: BuyProduct
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 5
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &9032408322066514910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3288,6 +3274,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f270fcf41e64718439b204fe9a4ae880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSFX
+--- !u!114 &9057751490595640533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941119331547400392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3bbd40e7b44f064eb9a7de7a7bd358d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemUI
+  productID: 4
 --- !u!1 &9189677573763708422
 GameObject:
   m_ObjectHideFlags: 0
